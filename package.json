@@ -1,0 +1,20 @@
+{
+	"name": "create-curried",
+	"description": "An utility to create curried functions that its parameters are reordered by user-defined order",
+	"version": "1.0.0",
+	"author": "andjsrk",
+	"main": "./dist/index.js",
+	"exports": {
+		".": "./dist/index.js"
+	},
+	"devDependencies": {
+		"typescript": "latest"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/andjsrk/create-curried.git"
+	},
+	"homepage": "https://github.com/andjsrk/create-curried",
+	"license": "MIT",
+	"keywords": ["curry"]
+}

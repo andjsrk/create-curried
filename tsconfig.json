@@ -1,0 +1,11 @@
+{
+	"compilerOptions": {
+		"declaration": true,
+		"exactOptionalPropertyTypes": true,
+		"module": "CommonJS",
+		"outDir": "dist",
+		"strict": true,
+		"target": "ESNext"
+	},
+	"include": ["src"]
+}
