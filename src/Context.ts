@@ -24,6 +24,7 @@ export class Context<Fn extends AnyFn, TakenPositions extends ParameterPosition 
 		return newCtx
 	}
 	takes<P extends Exclude<TakeCount<Fn>, TakenPositions>>(position: P) {
+		if (position < 0) throw new RangeError(`position must be in range >=0.`)
 		if (this.resultParameters.includes(position)) throw new RangeError(`parameter with position ${position} is already registered`)
 		
 		return this.#clone(it => {
@@ -55,6 +56,8 @@ export class Context<Fn extends AnyFn, TakenPositions extends ParameterPosition 
 		}) as any as Context<Fn, TakenPositions | typeof restArgs>
 	}
 	withStatic<P extends Exclude<TakeCount<Fn>, TakenPositions>>(position: P) {
+		if (position < 0) throw new RangeError(`position must be in range >=0.`)
+		
 		return <T>(arg: T) =>
 			this.#clone(it => {
 				it.boundArgs[position] = arg
