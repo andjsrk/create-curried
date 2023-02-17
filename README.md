@@ -2,7 +2,6 @@
 An utility to create curried functions that its parameters are reordered by user-defined order
 
 # Installation
-Node.js 
 ```sh
 npm install create-curried
 ```
@@ -35,7 +34,7 @@ const justF = curried(f)
 Parameters that are not taken from given function will be filled with `undefined`.
 
 ### `Context#takes(position)`
-Takes positional parameter of the function.
+Takes a parameter of the function with given position.
 
 ### `Context#takesThis()`
 Takes thisArg of the function.
@@ -50,8 +49,10 @@ because of curried function must take single argument, generated function will t
 ### `Context#withStatic(position)`
 > :warning: This method is a [HOF(Higher-Order Function)](https://wikipedia.org/wiki/Higher-order_function).
 
-Binds argument for specified position.
+Binds argument for given position.
 Returns a function that can set argument.
+
+#### To TypeScript Users
 Returned function takes single generic parameter that can coerce type of `value`.
 
 ### `Context#withStaticThis(thisArg)`
