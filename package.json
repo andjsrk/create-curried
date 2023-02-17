@@ -1,7 +1,7 @@
 {
 	"name": "create-curried",
 	"description": "An utility to create curried functions that its parameters are reordered by user-defined order",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"author": "andjsrk",
 	"main": "./dist/index.js",
 	"exports": {
