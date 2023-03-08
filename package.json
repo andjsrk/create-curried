@@ -16,5 +16,5 @@
 	},
 	"homepage": "https://github.com/andjsrk/create-curried",
 	"license": "MIT",
-	"keywords": ["curry"]
+	"keywords": ["currying"]
 }
