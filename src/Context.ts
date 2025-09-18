@@ -7,14 +7,16 @@ interface Memoized {
 	restArgs?: Array<any>
 }
 
-export class Context<Fn extends AnyFn, TakenPositions extends ParameterPosition = never> {
+export class Context<Fn extends AnyFn, TakenPositions extends Array<ParameterPosition> = []> {
+	private readonly fn: Fn
+	private readonly maxStaticArgCount: number
 	private resultParameters: Array<ParameterPosition> = []
 	private boundArgs: Array<any> = []
 	private boundThis: any
-	constructor(
-		private readonly fn: Fn,
-		private readonly maxStaticArgCount: number = fn.length,
-	) {}
+	constructor(fn: Fn, maxStaticArgCount: number = fn.length) {
+		this.fn = fn
+		this.maxStaticArgCount = maxStaticArgCount
+	}
 	#clone(applier?: (ctx: Context<Fn, TakenPositions>) => void) {
 		const newCtx = new Context<Fn, TakenPositions>(this.fn, this.maxStaticArgCount)
 		newCtx.resultParameters = [...this.resultParameters]
@@ -23,13 +25,16 @@ export class Context<Fn extends AnyFn, TakenPositions extends ParameterPosition 
 		applier?.(newCtx)
 		return newCtx
 	}
-	takes<P extends Exclude<TakeCount<Fn>, TakenPositions>>(position: P) {
+	#withPosition<P extends ParameterPosition>(pos: P) {
+		return this.#clone(it => {
+			it.resultParameters.push(pos)
+		}) as any as Context<Fn, [...TakenPositions, P]>
+	}
+	takes<P extends Exclude<TakeCount<Fn>, TakenPositions[number]>>(position: P) {
 		if (position < 0) throw new RangeError(`position must be in range >=0.`)
 		if (this.resultParameters.includes(position)) throw new RangeError(`parameter with position ${position} is already registered`)
 		
-		return this.#clone(it => {
-			it.resultParameters.push(position)
-		}) as any as Context<Fn, TakenPositions | P>
+		return this.#withPosition(position)
 	}
 	takesThis(
 		this: // restricts multiple call
@@ -37,11 +42,9 @@ export class Context<Fn extends AnyFn, TakenPositions extends ParameterPosition 
 				? never
 				: Context<Fn, TakenPositions>
 	) {
-		if (this.resultParameters.includes(thisArg)) throw new Error(`thisArg is already registered`)
+		if (this.resultParameters.includes(thisArg)) throw new Error('thisArg is already registered')
 		
-		return this.#clone(it => {
-			it.resultParameters.push(thisArg)
-		}) as any as Context<Fn, TakenPositions | typeof thisArg>
+		return this.#withPosition(thisArg)
 	}
 	takesRest(
 		this: // restricts multiple call
@@ -51,11 +54,9 @@ export class Context<Fn extends AnyFn, TakenPositions extends ParameterPosition 
 	) {
 		if (this.resultParameters.includes(restArgs)) throw new Error('rest parameter is already registered')
 		
-		return this.#clone(it => {
-			it.resultParameters.push(restArgs)
-		}) as any as Context<Fn, TakenPositions | typeof restArgs>
+		return this.#withPosition(restArgs)
 	}
-	withStatic<P extends Exclude<TakeCount<Fn>, TakenPositions>>(position: P) {
+	withStatic<P extends Exclude<TakeCount<Fn>, TakenPositions[number]>>(position: P) {
 		if (position < 0) throw new RangeError(`position must be in range >=0.`)
 		
 		return <T>(arg: T) =>

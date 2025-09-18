@@ -10,8 +10,10 @@ npm install create-curried
 
 ## `curried(fn, maxStaticArgCount?)`
 Returns a `Context` for given function. \
-`maxStaticArgCount` is maximum number of arguments given function takes, and will be used to determine where non-rest parameters end.
-This includes optional parameters as well, but not rest parameters because they have no static argument count.
+`maxStaticArgCount` is maximum number of arguments given function takes,
+and will be used to determine where non-rest parameters end.
+This includes optional parameters as well, but not rest parameters because
+they have no static argument count.
 
 ## `Context`
 Contains informations about given function such as how parameters should be ordered. \
@@ -41,7 +43,8 @@ Takes thisArg of the function.
 
 ### `Context#takesRest()`
 Takes rest parameter of the function.
-because of curried function must take single argument, generated function will take an array instead of taking arguments directly.
+Because of curried function must take single argument,
+generated function will take an array instead of taking arguments directly.
 
 <br />
 
@@ -68,8 +71,10 @@ The method takes single generic parameter that can coerce type of `thisArg`.
 Generates curried function that its parameters are ordered by order of method calls.
 
 #### To TypeScript Users
-The method takes single generic parameter `ResultFn` that will be used to do forced type cast for generated function, due to there is no way to handle generic parameters of a function in type level.
-`ResultFn` is type of given function by default.
+The method takes single generic parameter `ResultFn` that will be used to
+do forced type cast for generated function, due to there is no way to handle
+generic parameters of a function in type level.
+`ResultFn` is type of given function, by default.
 
 ## JavaScript
 ```js
