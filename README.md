@@ -18,7 +18,7 @@ Contains informations about given function such as how parameters should be orde
 Generated function's parameters' order depends on order of method calls. \
 For example, on below, `reversedF` is `b => a => [a, b]`, and `justF` is `a => b => [a, b]`.
 ```js
-const f = a => b => [a, b]
+const f = (a, b) => [a, b]
 
 const reversedF = curried(f)
 	.takes(1)
