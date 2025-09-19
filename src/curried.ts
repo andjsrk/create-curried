@@ -1,5 +1,6 @@
-import { Context } from './Context'
-import type { AnyFn } from './types'
+import { Context } from './Context.js'
 
-export const curried = <Fn extends AnyFn>(fn: Fn, maxStaticArgCount?: number) =>
-	new Context(fn, maxStaticArgCount)
+/**
+ * See {@linkcode Context.new}
+ */
+export const curried = Context.new

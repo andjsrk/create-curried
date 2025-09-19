@@ -4,11 +4,12 @@
 		"erasableSyntaxOnly": true,
 		"exactOptionalPropertyTypes": true,
 		"forceConsistentCasingInFileNames": true,
-		"module": "CommonJS",
+		"module": "nodenext",
+		"moduleResolution": "nodenext",
 		"noEmitOnError": true,
 		"outDir": "dist",
 		"strict": true,
-		"target": "ESNext"
+		"target": "esnext"
 	},
 	"include": ["src"]
 }

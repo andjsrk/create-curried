@@ -1,2 +1,2 @@
-export const thisArg = Symbol('thisArg')
-export const restArgs = Symbol('restArgs')
+export const thisArgSymbol = Symbol('thisArg')
+export const restArgsSymbol = Symbol('restArgs')

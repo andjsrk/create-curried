@@ -1,2 +1,2 @@
-export * from './Context'
-export * from './curried'
+export * from './Context.js'
+export * from './curried.js'
